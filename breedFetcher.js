@@ -1,13 +1,6 @@
 const request = require('request');//require request package
-const args = process.argv.slice(2);//receive user input
-let argpath;
-
-for (const item of args) {
-  argpath = `https://api.thecatapi.com/v1/breeds/search?q=${item}`; //concatenate using template literals to ensure only the cat id changes
-}
-
-const returnCatsDescription = (path) => {// receive the path
-  request.get(path, (err, res, body) => {
+const fetchBreedDescription = (breedName,callback) => {// receive the path
+  request.get(breedName, (err, res, body) => {
     if (err) {//returns error if any
       console.error('Error:', err);
       return;
@@ -35,7 +28,6 @@ const returnCatsDescription = (path) => {// receive the path
     console.log(description);//log the description
   });
 };
-
-returnCatsDescription(argpath);
+module.exports = {fetchBreedDescription};
 
 
